@@ -1,0 +1,29 @@
+{
+  "name": "adopt-me",
+  "version": "1.0.0",
+  "description": "Quick React web app for adopting pets",
+  "main": "index.js",
+  "scripts": {
+    "format": "prettier --write \"src/**/*.{js, jsx, css, json} \" ",
+    "format:check": "prettier --list-different \"src/**/*.{js, jsx, css, json} \" ",
+    "lint": "eslint \"**/*.{js,jsx}\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carlosloureda/adopt-me.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/carlosloureda/adopt-me/issues"
+  },
+  "homepage": "https://github.com/carlosloureda/adopt-me#readme",
+  "devDependencies": {
+    "eslint": "^5.6.1",
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "husky": "^1.1.0",
+    "prettier": "^1.14.3"
+  }
+}
