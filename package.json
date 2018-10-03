@@ -7,7 +7,8 @@
     "format": "prettier --write \"src/**/*.{js, jsx, css, json} \" ",
     "format:check": "prettier --list-different \"src/**/*.{js, jsx, css, json} \" ",
     "lint": "eslint \"**/*.{js,jsx}\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "parcel src/index.html"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
     "eslint-config-prettier": "^3.1.0",
     "eslint-plugin-prettier": "^3.0.0",
     "husky": "^1.1.0",
+    "parcel-bundler": "^1.10.1",
     "prettier": "^1.14.3"
   },
   "husky": {
@@ -31,5 +33,9 @@
       "pre-commit": "yarn run format:check && yarn run lint",
       "pre-push": "yarn run format:check && yarn run lint"
     }
+  },
+  "dependencies": {
+    "react": "^16.0.0",
+    "react-dom": "^16.5.2"
   }
 }
