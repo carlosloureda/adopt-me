@@ -13,6 +13,7 @@
     "node": true
   },
   "globals": {
-    "React": true
+    "React": true,
+    "ReactDOM": true
   }
 }
