@@ -1,8 +1,8 @@
 {
-  "name": "adopt-me",
+  "name": "rescue-me",
   "version": "1.0.0",
-  "description": "Quick React web app for adopting pets",
-  "main": "index.js",
+  "description": "An app to teach you to write React",
+  "main": "src/App.js",
   "scripts": {
     "format": "prettier --write \"src/**/*.{js, jsx, css, json} \" ",
     "format:check": "prettier --list-different \"src/**/*.{js, jsx, css, json} \" ",
@@ -12,36 +12,39 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/carlosloureda/adopt-me.git"
+    "url": "git+https://github.com/btholt/complete-intro-to-react-v4.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Brian Holt <btholt@gmail.com>",
+  "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/carlosloureda/adopt-me/issues"
+    "url": "https://github.com/btholt/complete-intro-to-react-v4/issues"
   },
-  "homepage": "https://github.com/carlosloureda/adopt-me#readme",
+  "homepage": "https://github.com/btholt/complete-intro-to-react-v4#readme",
   "devDependencies": {
-    "babel-eslint": "^10.0.1",
-    "eslint": "^5.6.1",
-    "eslint-config-prettier": "^3.1.0",
-    "eslint-plugin-import": "^2.14.0",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.6",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "eslint": "^5.3.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
-    "eslint-plugin-prettier": "^3.0.0",
-    "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-react": "^7.10.0",
     "husky": "^1.1.0",
-    "parcel-bundler": "^1.10.1",
-    "prettier": "^1.14.3"
+    "parcel-bundler": "^1.9.7",
+    "prettier": "^1.14.2"
+  },
+  "dependencies": {
+    "@reach/router": "^1.1.1",
+    "petfinder-client": "^0.0.3",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2"
   },
   "husky": {
     "hooks": {
       "pre-commit": "yarn run format:check && yarn run lint",
       "pre-push": "yarn run format:check && yarn run lint"
     }
-  },
-  "dependencies": {
-    "@reach/router": "^1.2.1",
-    "petfinder-client": "^0.0.3",
-    "react": "15.x || 16.x || 16.4.0-alpha.0911da3",
-    "react-dom": "15.x || 16.x || 16.4.0-alpha.0911da3"
   }
 }
