@@ -1,7 +1,7 @@
 import React from "react";
 import pf from "petfinder-client";
 import Pet from "./Pet";
-
+import { SearchBox } from "./SearchBox";
 // Esto debería de ir en el server porque hacemos el build en el cliente y es
 // un error de seguridad pero para este caso es seguro usarlo
 const petfinder = pf({
@@ -40,6 +40,7 @@ class Results extends React.Component {
   render() {
     return (
       <div className="search">
+        <SearchBox />
         {this.state.pets.map(pet => {
           let breed = pet.breeds.breed;
           if (Array.isArray(pet.breeds.breed)) {
