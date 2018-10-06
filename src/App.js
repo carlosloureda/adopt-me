@@ -74,6 +74,11 @@ export class App extends Component {
       <div>
         <header>
           <Link to="/">Rescue Me!</Link>
+          <Link to="/search-params">
+            <span aria-label="search" role="img">
+              🔎
+            </span>
+          </Link>
         </header>
         <Provider value={this.state}>
           <Router>
