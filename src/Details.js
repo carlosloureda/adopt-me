@@ -60,7 +60,7 @@ export class Details extends Component {
           <h2>
             {animal} - {breed} - {location}
           </h2>
-          <button onClicj={this.toggleModal}>Adopt {name}</button>
+          <button onClick={this.toggleModal}>Adopt {name}</button>
           <p>{description}</p>
           {showModal ? (
             <Modal>
