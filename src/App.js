@@ -1,17 +1,38 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 import { Router } from "@reach/router";
+import Loadable from "react-loadable";
 import pf from "petfinder-client";
 import { Provider } from "./SearchContext";
-import Results from "./Results";
-import { Details } from "./Details";
-import { SearchParams } from "./SearchParams";
 import NavBar from "./NavBar";
 
 const petfinder = pf({
   key: process.env.API_KEY,
   secret: process.env.API_SECRET
 });
+
+/* Split coding, with Loadable, TODO: make it a HOC*/
+const LoadableDetails = Loadable({
+  loader: () => import("./Details"),
+  loading() {
+    return <h1>loading split out code ...</h1>;
+  }
+});
+
+const LoadableResults = Loadable({
+  loader: () => import("./Results"),
+  loading() {
+    return <h1>loading split out code ...</h1>;
+  }
+});
+
+const LoadableSearchParams = Loadable({
+  loader: () => import("./SearchParams"),
+  loading() {
+    return <h1>loading split out code ...</h1>;
+  }
+});
+
 export class App extends Component {
   constructor(props) {
     super(props);
@@ -76,9 +97,9 @@ export class App extends Component {
         <NavBar />
         <Provider value={this.state}>
           <Router>
-            <Results path="/" />
-            <Details path="/details/:id" />
-            <SearchParams path="/search-params" />
+            <LoadableResults path="/" />
+            <LoadableDetails path="/details/:id" />
+            <LoadableSearchParams path="/search-params" />
           </Router>
         </Provider>
       </div>
