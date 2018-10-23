@@ -36,8 +36,8 @@ const NavLink = styled(Link)`
   }*/
 `;
 
+// tslint:disable-next-line:one-variable-per-declaration
 const NavBar = () => (
-  /*eslint-disable */
   <Container>
     <NavLink to="/">Rescue Me!</NavLink>
     <NavLink to="/search-params">

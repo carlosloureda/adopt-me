@@ -1,6 +1,6 @@
 import React from "react";
 
-const AdoptModalContent = props => (
+const AdoptModalContent = (props: any) => (
   <React.Fragment>
     <h1>Would you like to adopt {props.name} ?</h1>
     <div className="buttons">

@@ -1,17 +1,33 @@
 import React from "react";
-import pf from "petfinder-client";
+import pf, { Pet as PetType } from "petfinder-client";
+import { RouteComponentProps } from "@reach/router";
 import Pet from "./Pet";
 import { SearchBox } from "./SearchBox";
 import { Consumer } from "./SearchContext";
-// Esto debería de ir en el server porque hacemos el build en el cliente y es
-// un error de seguridad pero para este caso es seguro usarlo
+
+if (!process.env.API_KEY || !process.env.API_SECRET) {
+  throw new Error("no API keys");
+}
+
 const petfinder = pf({
   key: process.env.API_KEY, // parcel knows how to find the .env
   secret: process.env.API_SECRET
 });
 
-class Results extends React.Component {
-  constructor(props) {
+interface Props {
+  searchParams: {
+    location: string;
+    animal: string;
+    breed: string;
+  };
+}
+
+interface State {
+  pets: PetType[];
+}
+
+class Results extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
       pets: []
@@ -21,10 +37,10 @@ class Results extends React.Component {
     const result = await petfinder.breed.list({ animal: "dog" });
   }*/
 
-  componentDidMount() {
+  public componentDidMount() {
     this.search();
   }
-  search = () => {
+  public search = () => {
     petfinder.pet
       .find({
         output: "full",
@@ -33,28 +49,30 @@ class Results extends React.Component {
         breed: this.props.searchParams.breed
       })
       .then(data => {
-        let pets = [];
+        let pets: PetType[] = [];
         if (data.petfinder.pets && data.petfinder.pets.pet) {
           if (Array.isArray(data.petfinder.pets.pet)) {
             pets = data.petfinder.pets.pet;
           } else {
-            pets = [data.petfinder.pets];
+            pets = [data.petfinder.pets.pet];
           }
         }
 
         this.setState({
-          pets: pets
+          pets
         });
       });
   };
-  render() {
+  public render() {
     return (
       <div className="search">
         <SearchBox search={this.search} />
         {this.state.pets.map(pet => {
-          let breed = pet.breeds.breed;
+          let breed;
           if (Array.isArray(pet.breeds.breed)) {
             breed = pet.breeds.breed.join(", ");
+          } else {
+            breed = pet.breeds.breed;
           }
           return (
             <Pet
@@ -73,7 +91,7 @@ class Results extends React.Component {
   }
 }
 
-export default function ResultsWithContext(props) {
+export default function ResultsWithContext(props: RouteComponentProps) {
   return (
     <Consumer>
       {context => <Results {...props} searchParams={context} />}
