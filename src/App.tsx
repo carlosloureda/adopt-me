@@ -4,6 +4,12 @@ import Loadable from "react-loadable";
 import pf from "petfinder-client";
 import { Provider } from "./SearchContext";
 import NavBar from "./NavBar";
+import { locationsAreEqual } from "history";
+import { string } from "prop-types";
+
+if (!process.env.API_KEY || !process.env.API_SECRET) {
+  throw new Error("no API keys");
+}
 
 const petfinder = pf({
   key: process.env.API_KEY,
@@ -32,9 +38,21 @@ const LoadableSearchParams = Loadable({
   }
 });
 
-export class App extends Component {
-  constructor(props) {
+interface State {
+  location: string;
+  animal: string;
+  breed: string;
+  breeds: string[];
+  handleAnimalChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleBreedChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleLocationChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  getBreeds: () => void;
+}
+
+export class App extends Component<{}, State> {
+  constructor(props: {}) {
     super(props);
+
     this.state = {
       location: "Seattle, WA",
       animal: "",
@@ -46,28 +64,37 @@ export class App extends Component {
       getBreeds: this.getBreeds
     };
   }
-  handleLocationChange = event => {
-    this.setState({
-      location: event.target.value
-    });
+
+  public handleLocationChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    if (event.target instanceof HTMLInputElement) {
+      this.setState({
+        location: event.target.value
+      });
+    }
   };
-  handleAnimalChange = event => {
-    this.setState(
-      {
-        animal: event.target.value
-      },
-      () => {
-        this.getBreeds();
-      }
-    );
+  public handleAnimalChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target instanceof HTMLInputElement) {
+      this.setState(
+        {
+          animal: event.target.value
+        },
+        () => {
+          this.getBreeds();
+        }
+      );
+    }
   };
-  handleBreedChange = event => {
-    this.setState({
-      breed: event.target.value
-    });
+
+  public handleBreedChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    if (event.target instanceof HTMLSelectElement) {
+      this.setState({
+        breed: event.target.value
+      });
+    }
   };
-  getBreeds() {
-    let breeds = [];
+  public getBreeds() {
     if (this.state.animal) {
       petfinder.breed.list({ animal: this.state.animal }).then(data => {
         if (
@@ -80,17 +107,17 @@ export class App extends Component {
           });
         } else {
           this.setState({
-            breeds: breeds
+            breeds: []
           });
         }
       });
     } else {
       this.setState({
-        breeds: breeds
+        breeds: []
       });
     }
   }
-  render() {
+  public render() {
     return (
       <div>
         <NavBar />
